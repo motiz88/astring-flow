@@ -5,7 +5,6 @@ import { parse } from 'flow-parser';
 import astring from 'astring';
 import flowGenerator from '../../src';
 import normalizeNewline from 'normalize-newline';
-import RecursiveIterator from 'recursive-iterator';
 
 const unsupportedNodes = ['JSXElement', 'AwaitExpression'];
 
@@ -15,10 +14,12 @@ describe('roundtrip', () => {
     describe(basename, () => {
       const src = normalizeNewline(fs.readFileSync(filename, 'utf8'));
       const ast = parseFlow(src);
-      if (some(new RecursiveIterator(ast, 0, true, Infinity), ({node, key}) => {
-        return key === 'type' && typeof node === 'string' &&
-          unsupportedNodes.indexOf(node) !== -1;
-      })) {
+      if (some(
+        depthFirstVisit({ value: ast }),
+        ({ value, key }) =>
+          key === 'type' && typeof value === 'string' &&
+          unsupportedNodes.indexOf(value) !== -1
+      )) {
         return;
       }
       it('result should parse', () => {
@@ -49,4 +50,17 @@ function some (collection, fn) {
     if (fn(value)) return true;
   }
   return false;
+}
+
+function * depthFirstVisit ({ value, key = null }) {
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; ++i) {
+      yield * depthFirstVisit({ value: value[i], key: i });
+    }
+  } else if (value && typeof value === 'object') {
+    for (const [key, child] of Object.entries(value)) {
+      yield * depthFirstVisit({ value: child, key });
+    }
+  }
+  yield { value, key };
 }

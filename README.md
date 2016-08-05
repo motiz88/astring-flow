@@ -9,6 +9,14 @@
 
 Flow AST types for [Astring][astring-url]
 
+```javascript
+var astring = require('astring');
+var flowGenerator = require('astring-flow');
+var code = astring(astWithTypes, {
+    generator: flowGenerator
+});
+```
+
 This is an early release. Use with caution. There will be changes (to be communicated via semver).
 
 Until some of my changes and fixes to Astring make it upstream, this repo is built against my [fork][https://github.com/motiz88/astring] of Astring.  

@@ -17,7 +17,7 @@
     "test:coverage": "cross-env NODE_ENV=test nyc --silent mocha",
     "test:coverage-and-xunit": "cross-env NODE_ENV=test nyc --silent mocha  --reporter mocha-junit-reporter",
     "test:fast": "mocha",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,91 @@
+{
+  "name": "astring-flow",
+  "version": "0.0.0-semantic-release",
+  "description": "Flow AST types for Astring",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "cross-env BABEL_ENV=production babel src -d dist",
+    "coverage:html": "nyc report --reporter=html",
+    "coverage:codecov": "nyc report --reporter=text-lcov > coverage.lcov",
+    "eslint": "eslint *.js src test decls",
+    "eslint:xunit-to-file": "envcheck ESLINT_FILE && compat \"npm run eslint -- -f junit --output-file $ESLINT_FILE\"",
+    "flow": "flow",
+    "flow:check": "flow check",
+    "test": "npm run test:ci",
+    "test:ci": "run-s --continue-on-error test:coverage-and-xunit eslint:xunit-to-file",
+    "test:local": "run-s test:coverage eslint coverage:html",
+    "test:coverage": "cross-env NODE_ENV=test nyc --silent mocha",
+    "test:coverage-and-xunit": "cross-env NODE_ENV=test nyc --silent mocha  --reporter mocha-junit-reporter",
+    "test:fast": "mocha",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/motiz88/astring-flow.git"
+  },
+  "keywords": [
+    "astring",
+    "codegen",
+    "flow",
+    "ast",
+    "flowtype"
+  ],
+  "author": "Moti Zilberman <motiz88@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motiz88/astring-flow/issues"
+  },
+  "homepage": "https://github.com/motiz88/astring-flow#readme",
+  "dependencies": {
+    "babel-runtime": "^6.11.6"
+  },
+  "peerDependencies": {
+    "astring": "^0.6.1"
+  },
+  "devDependencies": {
+    "astring": "github:motiz88/astring#installable-master",
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.0",
+    "babel-eslint": "^6.0.4",
+    "babel-plugin-istanbul": "=1.0.2",
+    "babel-plugin-transform-flow-strip-types": "^6.8.0",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2015-node6": "^0.2.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "chai": "^3.5.0",
+    "condition-circle": "^1.2.0",
+    "cross-env": "^2.0.0",
+    "eslint": "^2.13.1",
+    "eslint-config-semistandard": "^6.0.2",
+    "eslint-config-standard": "^5.3.1",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-flowtype": "^2.4.0",
+    "eslint-plugin-mocha": "^3.0.0",
+    "eslint-plugin-promise": "^1.3.2",
+    "eslint-plugin-standard": "^1.3.2",
+    "flow-bin": "^0.30.0",
+    "flow-parser": "^0.28.0",
+    "iterall": "^1.0.2",
+    "lolex": "^1.5.0",
+    "mocha": "^2.5.3",
+    "mocha-junit-reporter": "^1.11.1",
+    "mocha-lcov-reporter": "^1.2.0",
+    "mz": "^2.4.0",
+    "node-glob": "^1.2.0",
+    "normalize-newline": "^2.0.0",
+    "npm-run-all": "^2.3.0",
+    "nyc": "^7.1.0",
+    "recursive-iterator": "^2.0.0",
+    "semantic-release": "^4.3.5"
+  },
+  "nyc": {
+    "all": true,
+    "include": "src/**/*.js",
+    "sourceMap": false,
+    "instrument": false
+  },
+  "release": {
+    "verifyConditions": "condition-circle"
+  }
+}

@@ -1,0 +1,1 @@
+export function foo() {}; export async function foo() {};

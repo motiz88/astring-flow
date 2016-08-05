@@ -1,0 +1,1 @@
+export function foo() {}; export var foo = 1;

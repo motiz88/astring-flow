@@ -1,0 +1,16 @@
+machine:
+  environment:
+    MOCHA_FILE: $CIRCLE_TEST_REPORTS/test-results.xml
+    ESLINT_FILE: $CIRCLE_TEST_REPORTS/eslint-results.xml
+dependencies:
+  pre:
+    - npm install -g npm@3
+test:
+  post:
+    - npm run coverage:html -- --report-dir $CIRCLE_ARTIFACTS/coverage
+    - npm run coverage:codecov && bash <(curl -s https://codecov.io/bash)
+deployment:
+  prod:
+    branch: master
+    commands:
+      - npm run semantic-release

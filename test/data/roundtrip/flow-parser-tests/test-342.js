@@ -1,0 +1,1 @@
+import await from 'foo'

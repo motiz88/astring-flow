@@ -19,7 +19,7 @@ var code = astring(astWithTypes, {
 
 This is an early release. Use with caution. There will be changes (to be communicated via semver).
 
-Until some of my changes and fixes to Astring make it upstream, this repo is built against my [fork][https://github.com/motiz88/astring] of Astring.  
+Until some of my changes and fixes to Astring make it upstream, this repo is built against my [fork](https://github.com/motiz88/astring) of Astring.  
 
 [astring-url]: https://github.com/davidbonnet/astring
 [circle-image]: https://img.shields.io/circleci/project/motiz88/astring-flow.svg?style=flat-square

@@ -1,961 +1,0 @@
-
-> astring-flow@1.0.0 test:local C:\gh\astring-flow
-> run-s test:coverage eslint flow coverage:html
-
-
-> astring-flow@1.0.0 test:coverage C:\gh\astring-flow
-> cross-env NODE_ENV=test nyc --silent mocha
-
-
-
-  roundtrip
-    test-001.js
-      √ result should parse
-    test-002.js
-      √ result should parse
-    test-003.js
-      √ result should parse
-    test-004.js
-      √ result should parse
-    test-005.js
-      √ result should parse
-    test-006.js
-      √ result should parse
-    test-007.js
-      √ result should parse
-    test-008.js
-      √ result should parse
-    test-009.js
-      √ result should parse
-    test-010.js
-      √ result should parse
-    test-011.js
-      √ result should parse
-    test-012.js
-      √ result should parse
-    test-013.js
-      √ result should parse
-    test-014.js
-      √ result should parse
-    test-015.js
-      √ result should parse
-    test-016.js
-      √ result should parse
-    test-017.js
-      √ result should parse
-    test-018.js
-      √ result should parse
-    test-019.js
-      √ result should parse
-    test-020.js
-      √ result should parse
-    test-021.js
-      √ result should parse
-    test-022.js
-      √ result should parse
-    test-023.js
-      √ result should parse
-    test-024.js
-      √ result should parse
-    test-025.js
-      √ result should parse
-    test-026.js
-      √ result should parse
-    test-027.js
-      √ result should parse
-    test-028.js
-      √ result should parse
-    test-029.js
-      √ result should parse
-    test-030.js
-      √ result should parse
-    test-031.js
-      √ result should parse
-    test-032.js
-      √ result should parse
-    test-033.js
-      √ result should parse
-    test-034.js
-      √ result should parse
-    test-035.js
-      √ result should parse
-    test-036.js
-      √ result should parse
-    test-037.js
-      √ result should parse
-    test-038.js
-      √ result should parse
-    test-039.js
-      √ result should parse
-    test-040.js
-      √ result should parse
-    test-041.js
-      √ result should parse
-    test-042.js
-      √ result should parse
-    test-043.js
-      √ result should parse
-    test-044.js
-      √ result should parse
-    test-045.js
-      √ result should parse
-    test-046.js
-      √ result should parse
-    test-047.js
-      √ result should parse
-    test-048.js
-      √ result should parse
-    test-049.js
-      √ result should parse
-    test-050.js
-      √ result should parse
-    test-051.js
-      √ result should parse
-    test-052.js
-      √ result should parse
-    test-053.js
-      √ result should parse
-    test-054.js
-      √ result should parse
-    test-055.js
-      √ result should parse
-    test-056.js
-      √ result should parse
-    test-057.js
-      √ result should parse
-    test-058.js
-      √ result should parse
-    test-059.js
-      √ result should parse
-    test-060.js
-      √ result should parse
-    test-061.js
-      √ result should parse
-    test-062.js
-      √ result should parse
-    test-063.js
-      √ result should parse
-    test-064.js
-      √ result should parse
-    test-065.js
-      √ result should parse
-    test-066.js
-      √ result should parse
-    test-067.js
-      √ result should parse
-    test-068.js
-      √ result should parse
-    test-069.js
-      √ result should parse
-    test-070.js
-      √ result should parse
-    test-071.js
-      √ result should parse
-    test-072.js
-      √ result should parse
-    test-073.js
-      √ result should parse
-    test-074.js
-      √ result should parse
-    test-075.js
-      √ result should parse
-    test-076.js
-      √ result should parse
-    test-077.js
-      √ result should parse
-    test-078.js
-      √ result should parse
-    test-079.js
-      √ result should parse
-    test-080.js
-      √ result should parse
-    test-081.js
-      √ result should parse
-    test-082.js
-      √ result should parse
-    test-083.js
-      √ result should parse
-    test-084.js
-      √ result should parse
-    test-085.js
-      √ result should parse
-    test-086.js
-      √ result should parse
-    test-087.js
-      √ result should parse
-    test-088.js
-      √ result should parse
-    test-089.js
-      √ result should parse
-    test-090.js
-      √ result should parse
-    test-091.js
-      √ result should parse
-    test-092.js
-      √ result should parse
-    test-093.js
-      √ result should parse
-    test-094.js
-      √ result should parse
-    test-095.js
-      √ result should parse
-    test-096.js
-      √ result should parse
-    test-097.js
-      √ result should parse
-    test-098.js
-      √ result should parse
-    test-099.js
-      √ result should parse
-    test-100.js
-      √ result should parse
-    test-101.js
-      √ result should parse
-    test-102.js
-      √ result should parse
-    test-103.js
-      √ result should parse
-    test-104.js
-      √ result should parse
-    test-105.js
-      √ result should parse
-    test-106.js
-      √ result should parse
-    test-107.js
-      √ result should parse
-    test-108.js
-      √ result should parse
-    test-109.js
-      √ result should parse
-    test-110.js
-      √ result should parse
-    test-111.js
-      √ result should parse
-    test-112.js
-      √ result should parse
-    test-113.js
-      √ result should parse
-    test-114.js
-      √ result should parse
-    test-115.js
-      √ result should parse
-    test-116.js
-      √ result should parse
-    test-117.js
-      √ result should parse
-    test-118.js
-      √ result should parse
-    test-119.js
-      √ result should parse
-    test-120.js
-      √ result should parse
-    test-121.js
-      √ result should parse
-    test-122.js
-      √ result should parse
-    test-123.js
-      √ result should parse
-    test-124.js
-      √ result should parse
-    test-125.js
-      √ result should parse
-    test-126.js
-      √ result should parse
-    test-127.js
-      √ result should parse
-    test-128.js
-      √ result should parse
-    test-129.js
-      √ result should parse
-    test-130.js
-      √ result should parse
-    test-131.js
-      √ result should parse
-    test-132.js
-      √ result should parse
-    test-133.js
-      √ result should parse
-    test-134.js
-      √ result should parse
-    test-135.js
-      √ result should parse
-    test-136.js
-      √ result should parse
-    test-137.js
-      √ result should parse
-    test-138.js
-      √ result should parse
-    test-139.js
-      √ result should parse
-    test-140.js
-      √ result should parse
-    test-141.js
-      √ result should parse
-    test-142.js
-      √ result should parse
-    test-143.js
-      √ result should parse
-    test-144.js
-      √ result should parse
-    test-145.js
-      √ result should parse
-    test-146.js
-      √ result should parse
-    test-147.js
-      √ result should parse
-    test-148.js
-      √ result should parse
-    test-149.js
-      √ result should parse
-    test-150.js
-      √ result should parse
-    test-151.js
-      √ result should parse
-    test-152.js
-      √ result should parse
-    test-153.js
-      √ result should parse
-    test-154.js
-      √ result should parse
-    test-155.js
-      √ result should parse
-    test-156.js
-      √ result should parse
-    test-157.js
-      √ result should parse
-    test-158.js
-      √ result should parse
-    test-159.js
-      √ result should parse
-    test-160.js
-      √ result should parse
-    test-161.js
-      √ result should parse
-    test-162.js
-      √ result should parse
-    test-163.js
-      √ result should parse
-    test-164.js
-      √ result should parse
-    test-165.js
-      √ result should parse
-    test-166.js
-      √ result should parse
-    test-167.js
-      √ result should parse
-    test-168.js
-      √ result should parse
-    test-169.js
-      √ result should parse
-    test-170.js
-      √ result should parse
-    test-171.js
-      √ result should parse
-    test-172.js
-      √ result should parse
-    test-173.js
-      √ result should parse
-    test-174.js
-      √ result should parse
-    test-175.js
-      √ result should parse
-    test-176.js
-      √ result should parse
-    test-177.js
-      √ result should parse
-    test-178.js
-      √ result should parse
-    test-179.js
-      √ result should parse
-    test-180.js
-      √ result should parse
-    test-181.js
-      √ result should parse
-    test-182.js
-      √ result should parse
-    test-183.js
-      √ result should parse
-    test-184.js
-      √ result should parse
-    test-185.js
-      √ result should parse
-    test-186.js
-      √ result should parse
-    test-187.js
-      √ result should parse
-    test-188.js
-      √ result should parse
-    test-189.js
-      √ result should parse
-    test-190.js
-      √ result should parse
-    test-191.js
-      √ result should parse
-    test-192.js
-      √ result should parse
-    test-193.js
-      √ result should parse
-    test-194.js
-      √ result should parse
-    test-195.js
-      √ result should parse
-    test-196.js
-      √ result should parse
-    test-197.js
-      √ result should parse
-    test-198.js
-      √ result should parse
-    test-199.js
-      √ result should parse
-    test-200.js
-      √ result should parse
-    test-201.js
-      √ result should parse
-    test-202.js
-      √ result should parse
-    test-203.js
-      √ result should parse
-    test-210.js
-      √ result should parse
-    test-211.js
-      √ result should parse
-    test-212.js
-      √ result should parse
-    test-213.js
-      √ result should parse
-    test-214.js
-      √ result should parse
-    test-215.js
-      √ result should parse
-    test-216.js
-      √ result should parse
-    test-217.js
-      √ result should parse
-    test-218.js
-      √ result should parse
-    test-219.js
-      √ result should parse
-    test-220.js
-      √ result should parse
-    test-221.js
-      √ result should parse
-    test-222.js
-      √ result should parse
-    test-223.js
-      √ result should parse
-    test-224.js
-      √ result should parse
-    test-225.js
-      √ result should parse
-    test-226.js
-      √ result should parse
-    test-227.js
-      √ result should parse
-    test-228.js
-      √ result should parse
-    test-229.js
-      √ result should parse
-    test-230.js
-      √ result should parse
-    test-231.js
-      √ result should parse
-    test-232.js
-      √ result should parse
-    test-233.js
-      √ result should parse
-    test-234.js
-      √ result should parse
-    test-235.js
-      √ result should parse
-    test-236.js
-      √ result should parse
-    test-237.js
-      √ result should parse
-    test-238.js
-      √ result should parse
-    test-239.js
-      √ result should parse
-    test-240.js
-      √ result should parse
-    test-241.js
-      √ result should parse
-    test-242.js
-      √ result should parse
-    test-243.js
-      √ result should parse
-    test-244.js
-      √ result should parse
-    test-245.js
-      √ result should parse
-    test-247.js
-      √ result should parse
-    test-248.js
-      √ result should parse
-    test-249.js
-      √ result should parse
-    test-250.js
-      √ result should parse
-    test-251.js
-      √ result should parse
-    test-252.js
-      √ result should parse
-    test-253.js
-      √ result should parse
-    test-254.js
-      √ result should parse
-    test-255.js
-      √ result should parse
-    test-256.js
-      √ result should parse
-    test-257.js
-      √ result should parse
-    test-258.js
-      √ result should parse
-    test-259.js
-      √ result should parse
-    test-260.js
-      √ result should parse
-    test-261.js
-      √ result should parse
-    test-262.js
-      √ result should parse
-    test-263.js
-      √ result should parse
-    test-264.js
-      √ result should parse
-    test-265.js
-      √ result should parse
-    test-266.js
-      √ result should parse
-    test-267.js
-      √ result should parse
-    test-268.js
-      √ result should parse
-    test-269.js
-      √ result should parse
-    test-270.js
-      √ result should parse
-    test-271.js
-      √ result should parse
-    test-272.js
-      √ result should parse
-    test-273.js
-      √ result should parse
-    test-274.js
-      √ result should parse
-    test-275.js
-      √ result should parse
-    test-276.js
-      √ result should parse
-    test-277.js
-      √ result should parse
-    test-278.js
-      √ result should parse
-    test-279.js
-      √ result should parse
-    test-280.js
-      √ result should parse
-    test-281.js
-      √ result should parse
-    test-282.js
-      √ result should parse
-    test-283.js
-      √ result should parse
-    test-284.js
-      √ result should parse
-    test-285.js
-      √ result should parse
-    test-286.js
-      √ result should parse
-    test-287.js
-      √ result should parse
-    test-288.js
-      √ result should parse
-    test-289.js
-      √ result should parse
-    test-290.js
-      √ result should parse
-    test-291.js
-      √ result should parse
-    test-292.js
-      √ result should parse
-    test-293.js
-      √ result should parse
-    test-294.js
-      √ result should parse
-    test-295.js
-      √ result should parse
-    test-296.js
-      √ result should parse
-    test-297.js
-      √ result should parse
-    test-298.js
-      √ result should parse
-    test-299.js
-      √ result should parse
-    test-300.js
-      √ result should parse
-    test-301.js
-      √ result should parse
-    test-302.js
-      √ result should parse
-    test-303.js
-      √ result should parse
-    test-304.js
-      √ result should parse
-    test-305.js
-      √ result should parse
-    test-306.js
-      √ result should parse
-    test-307.js
-      √ result should parse
-    test-308.js
-      √ result should parse
-    test-309.js
-      √ result should parse
-    test-310.js
-      √ result should parse
-    test-311.js
-      √ result should parse
-    test-312.js
-      √ result should parse
-    test-313.js
-      √ result should parse
-    test-314.js
-      √ result should parse
-    test-315.js
-      √ result should parse
-    test-316.js
-      √ result should parse
-    test-317.js
-      √ result should parse
-    test-318.js
-      √ result should parse
-    test-319.js
-      √ result should parse
-    test-320.js
-      √ result should parse
-    test-321.js
-      √ result should parse
-    test-323.js
-      √ result should parse
-    test-325.js
-      √ result should parse
-    test-326.js
-      √ result should parse
-    test-327.js
-      √ result should parse
-    test-328.js
-      √ result should parse
-    test-329.js
-      √ result should parse
-    test-330.js
-      √ result should parse
-    test-331.js
-      √ result should parse
-    test-332.js
-      √ result should parse
-    test-334.js
-      √ result should parse
-    test-335.js
-      √ result should parse
-    test-336.js
-      √ result should parse
-    test-337.js
-      √ result should parse
-    test-338.js
-      √ result should parse
-    test-339.js
-      √ result should parse
-    test-341.js
-      √ result should parse
-    test-342.js
-      √ result should parse
-    test-343.js
-      √ result should parse
-    test-344.js
-      √ result should parse
-    test-345.js
-      √ result should parse
-    test-346.js
-      √ result should parse
-    test-347.js
-      √ result should parse
-    test-348.js
-      √ result should parse
-    test-349.js
-      √ result should parse
-    test-350.js
-      √ result should parse
-    test-351.js
-      √ result should parse
-    test-355.js
-      √ result should parse
-    test-356.js
-      √ result should parse
-    test-357.js
-      √ result should parse
-    test-360.js
-      √ result should parse
-    test-361.js
-      √ result should parse
-    test-362.js
-      √ result should parse
-    test-363.js
-      √ result should parse
-    test-364.js
-      √ result should parse
-    test-365.js
-      √ result should parse
-    test-366.js
-      √ result should parse
-    test-367.js
-      √ result should parse
-    test-368.js
-      √ result should parse
-    test-369.js
-      √ result should parse
-    test-370.js
-      √ result should parse
-    test-371.js
-      √ result should parse
-    test-372.js
-      √ result should parse
-    test-373.js
-      √ result should parse
-    test-374.js
-      √ result should parse
-    test-375.js
-      √ result should parse
-    test-376.js
-      √ result should parse
-    test-377.js
-      √ result should parse
-    test-378.js
-      √ result should parse
-    test-379.js
-      √ result should parse
-    test-380.js
-      √ result should parse
-    test-381.js
-      √ result should parse
-    test-382.js
-      √ result should parse
-    test-383.js
-      √ result should parse
-    test-384.js
-      √ result should parse
-    test-385.js
-      √ result should parse
-    test-386.js
-      √ result should parse
-    test-387.js
-      √ result should parse
-    test-388.js
-      √ result should parse
-    test-389.js
-      √ result should parse
-    test-390.js
-      √ result should parse
-    test-391.js
-      √ result should parse
-    test-392.js
-      √ result should parse
-    test-393.js
-      √ result should parse
-    test-394.js
-      √ result should parse
-    test-395.js
-      √ result should parse
-    test-396.js
-      √ result should parse
-    test-397.js
-      √ result should parse
-    test-398.js
-      √ result should parse
-    test-399.js
-      √ result should parse
-    test-400.js
-      √ result should parse
-    test-401.js
-      √ result should parse
-    test-402.js
-      √ result should parse
-    test-403.js
-      √ result should parse
-    test-404.js
-      √ result should parse
-    test-405.js
-      √ result should parse
-    test-406.js
-      √ result should parse
-    test-407.js
-      √ result should parse
-    test-408.js
-      √ result should parse
-    test-409.js
-      √ result should parse
-    test-410.js
-      √ result should parse
-    test-411.js
-      √ result should parse
-    test-412.js
-      √ result should parse
-    test-413.js
-      √ result should parse
-    test-414.js
-      √ result should parse
-    test-415.js
-      √ result should parse
-    test-416.js
-      √ result should parse
-    test-417.js
-      √ result should parse
-    test-418.js
-      √ result should parse
-    test-419.js
-      √ result should parse
-    test-420.js
-      √ result should parse
-    test-421.js
-      √ result should parse
-    test-422.js
-      √ result should parse
-    test-423.js
-      √ result should parse
-    test-424.js
-      √ result should parse
-    test-425.js
-      √ result should parse
-    test-426.js
-      √ result should parse
-    test-427.js
-      √ result should parse
-    test-428.js
-      √ result should parse
-    test-429.js
-      √ result should parse
-    test-430.js
-      √ result should parse
-    test-431.js
-      √ result should parse
-    test-432.js
-      √ result should parse
-    test-433.js
-      √ result should parse
-    test-434.js
-      √ result should parse
-    test-435.js
-      √ result should parse
-    test-436.js
-      √ result should parse
-    test-437.js
-      √ result should parse
-    test-438.js
-      √ result should parse
-    test-439.js
-      √ result should parse
-    test-440.js
-      √ result should parse
-    test-441.js
-      √ result should parse
-    test-442.js
-      √ result should parse
-    test-443.js
-      √ result should parse
-    test-444.js
-      √ result should parse
-    test-445.js
-      √ result should parse
-    test-446.js
-      √ result should parse
-    test-447.js
-      √ result should parse
-    test-448.js
-      √ result should parse
-    test-449.js
-      √ result should parse
-    test-450.js
-      √ result should parse
-    test-451.js
-      √ result should parse
-    test-452.js
-      √ result should parse
-    test-453.js
-      √ result should parse
-    test-454.js
-      √ result should parse
-    test-455.js
-      √ result should parse
-    test-456.js
-      √ result should parse
-    test-457.js
-      √ result should parse
-    test-458.js
-      √ result should parse
-    test-459.js
-      √ result should parse
-    test-460.js
-      √ result should parse
-    test-461.js
-      √ result should parse
-    test-462.js
-      √ result should parse
-    test-463.js
-      √ result should parse
-    test-464.js
-      √ result should parse
-    test-465.js
-      √ result should parse
-    test-466.js
-      √ result should parse
-    test-467.js
-      √ result should parse
-    test-468.js
-      √ result should parse
-    test-469.js
-      √ result should parse
-    test-470.js
-      √ result should parse
-    test-471.js
-      √ result should parse
-    test-472.js
-      √ result should parse
-    test-473.js
-      √ result should parse
-    test-474.js
-      √ result should parse
-    test-475.js
-      √ result should parse
-    test-476.js
-      √ result should parse
-    test-477.js
-      √ result should parse
-    test-478.js
-      √ result should parse
-    test-479.js
-      √ result should parse
-    test-480.js
-      √ result should parse
-    test-481.js
-      √ result should parse
-    test-482.js
-      √ result should parse
-    test-483.js
-      √ result should parse
-    test-484.js
-      √ result should parse
-    simple.js
-      √ result should parse
-
-
-  469 passing (320ms)
-
-
-> astring-flow@1.0.0 eslint C:\gh\astring-flow
-> eslint *.js src test decls
-
-
-> astring-flow@1.0.0 flow C:\gh\astring-flow
-> flow
-

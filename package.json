@@ -3,6 +3,9 @@
   "version": "0.0.0-semantic-release",
   "description": "Flow AST types for Astring",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist",
     "coverage:html": "nyc report --reporter=html",

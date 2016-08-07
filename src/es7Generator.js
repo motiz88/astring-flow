@@ -10,6 +10,7 @@ export default {
     if (computed) o.write(']');
     o.write(' = ');
     this[value.type](value, state);
+    o.write(';');
   },
   ClassImplements ({ id }, state) {
     this[id.type](id, state);

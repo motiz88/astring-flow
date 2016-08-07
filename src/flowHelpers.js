@@ -1,15 +1,18 @@
 import { writeCommaList } from './generatorHelpers';
 import flowGenerator from './flowGenerator';
+import { next, nextMaybe, nextMaybeStr } from './generatorSymbols';
 
 function FunctionTypeAnnotation ({ typeParameters, params, rest, returnType }, state, { colonReturn } = {}) {
   const { output: o } = state;
-  if (typeParameters) {
-    this[typeParameters.type](typeParameters, state);
-  }
+  this[nextMaybe](typeParameters, state);
   o.write('(');
-  const anyParams = writeCommaList.call(this, params, state);
+  const first = writeCommaList.call(this, params, state);
   if (rest) {
-    writeCommaList.call(this, [rest], state, anyParams);
+    if (!first) {
+      o.write(', ');
+    }
+    o.write('...');
+    this[next](rest, state);
   }
   o.write(')');
 
@@ -18,13 +21,13 @@ function FunctionTypeAnnotation ({ typeParameters, params, rest, returnType }, s
   } else {
     o.write(' => ');
   }
-  this[returnType.type](returnType, state);
+  this[next](returnType, state);
 }
 
 function DeclareVariable ({ id }, state) {
   const { output: o } = state;
   o.write('var ');
-  this[id.type](id, state);
+  this[next](id, state);
   o.write(';');
 }
 
@@ -41,7 +44,7 @@ function DeclareFunction ({ id }, state) {
     o.write(id.name);
     FunctionTypeAnnotation.call(this, id.typeAnnotation.typeAnnotation, state, { colonReturn: true });
   } else {
-    this[id.type](id, state);
+    this[next](id, state);
   }
   o.write(';');
 }
@@ -59,4 +62,37 @@ export function TypeParameters ({ params }, state) {
   }
 }
 
+export function functionSignature ({ typeParameters, params, defaults, rest, returnType }, state, { colonReturn = true } = { colonReturn }) {
+  const { output: o } = state;
+  this[nextMaybe](typeParameters, state);
+  o.write('(');
+  let first = true;
+  for (let i = 0; i < params.length; ++i) {
+    const param = params[i];
+    if (!first) {
+      o.write(', ');
+    }
+    this[next](param, state);
+    if (Array.isArray(defaults)) {
+      this[nextMaybeStr](' = ', defaults[i], state);
+    }
+    first = false;
+  }
+  if (rest) {
+    if (!first) {
+      o.write(', ');
+    }
+    o.write('...');
+    this[next](rest, state);
+  }
+  o.write(')');
+  if (returnType && returnType.typeAnnotation) {
+    if (colonReturn) {
+      o.write(': ');
+    } else {
+      o.write(' => ');
+    }
+    this[next](returnType.typeAnnotation, state);
+  }
+}
 export { FunctionTypeAnnotation, DeclareVariable, DeclareFunction, DeclareClass };

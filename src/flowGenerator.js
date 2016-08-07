@@ -1,31 +1,35 @@
 import baseGenerator from './es7Generator';
-import { writeDelimitedList, writeCommaList } from './generatorHelpers';
+import { writeCommaList, writeDelimitedListWithParensRule } from './generatorHelpers';
 import * as h from './flowHelpers';
+import { next, nextStr, nextMaybe, nextMaybeStr } from './generatorSymbols';
+import assert from 'assert';
+import jsStringEscape from 'js-string-escape';
 
 const just = s => function (node, state) {
   const { output: o } = state;
+  let result;
   if (typeof s === 'function') {
-    s = s.call(this, node, state);
+    result = s.call(this, node, state);
+  } else {
+    result = s;
   }
-  o.write(s);
+  o.write(result);
 };
 
 let FunctionDeclaration;
 
-const next = Symbol('next');
-const nextStr = Symbol('nextStr');
-const nextMaybe = Symbol('nextMaybe');
-const nextMaybeStr = Symbol('nextMaybeStr');
-
 const flowGenerator = {
   ...baseGenerator,
   [next] (node, state) {
+    assert(typeof node === 'object' && node && node.type, `not a node: ${node}`);
     if (!this[node.type]) {
       throw new Error(`Node type ${node.type} not implemented`);
     }
     this[node.type](node, state);
   },
   [nextStr] (prefix, node, state) {
+    assert(typeof prefix === 'string', `not a prefix: ${prefix}`);
+    assert(typeof node === 'object' && node && node.type, `not a node: ${node}`);
     const { output: o } = state;
     o.write(prefix);
     this[next](node, state);
@@ -47,7 +51,9 @@ const flowGenerator = {
   NumberTypeAnnotation: just('number'),
   NumberLiteralTypeAnnotation: just(node => node.raw || String(node.value)),
   StringTypeAnnotation: just('string'),
-  StringLiteralTypeAnnotation: just(node => node.raw || String(node.value)),
+  StringLiteralTypeAnnotation: just(node => {
+    return node.raw || jsStringEscape(node.value);
+  }),
   BooleanTypeAnnotation: just('boolean'),
   BooleanLiteralTypeAnnotation: just(node => node.raw || String(!!node.value)),
   TypeAnnotation ({ typeAnnotation }, state) {
@@ -62,14 +68,14 @@ const flowGenerator = {
   ExistsTypeAnnotation: just('*'),
   FunctionTypeAnnotation (node, state) {
     const { mzChildNode, mzChildNodeArgs, ...restState } = state;
-    const colonReturn = (mzChildNode === node && mzChildNodeArgs && mzChildNodeArgs.parentIsObjectTypeCallProperty);
+    const colonReturn = (mzChildNode === node && mzChildNodeArgs && mzChildNodeArgs.colonReturn);
     h.FunctionTypeAnnotation.call(this, node, restState, { colonReturn });
   },
   FunctionTypeParam ({ name, optional, typeAnnotation }, state) {
     const { output: o } = state;
     this[next](name, state);
     if (optional) o.write('?');
-    this[next](typeAnnotation, state);
+    this[nextMaybeStr](': ', typeAnnotation, state);
   },
   ArrayTypeAnnotation ({ elementType }, state) {
     const { output: o } = state;
@@ -84,9 +90,13 @@ const flowGenerator = {
   ObjectTypeProperty ({ key, value, optional }, state) {
     const { output: o } = state;
     this[next](key, state);
-    if (optional) o.write('?');
-    o.write(': ');
-    this[next](value, state);
+    if (!optional && typeof value === 'object' && value && value.type === 'FunctionTypeAnnotation') {
+      this[next](value, {...state, mzChildNode: value, mzChildNodeArgs: {colonReturn: true}});
+    } else {
+      if (optional) o.write('?');
+      o.write(': ');
+      this[next](value, state);
+    }
     o.write(';');
   },
   ObjectTypeIndexer ({ id, key, value }, state) {
@@ -98,11 +108,13 @@ const flowGenerator = {
     o.write(']');
     o.write(': ');
     this[next](value, state);
+    o.write(';');
   },
-  ObjectTypeCallProperty ({ static_, value }, state) {
+  ObjectTypeCallProperty ({ static: static_, value }, state) {
     const { output: o } = state;
     if (static_) o.write('static ');
-    this[next](value, {...state, mzChildNode: value, mzChildNodeArgs: {parentIsObjectTypeCallProperty: true}});
+    this[next](value, {...state, mzChildNode: value, mzChildNodeArgs: {colonReturn: true}});
+    o.write(';');
   },
   QualifiedTypeIdentifier ({ qualification, id }, state) {
     const { output: o } = state;
@@ -122,10 +134,14 @@ const flowGenerator = {
     this[next](property, state); */
   },
   UnionTypeAnnotation ({ types }, state) {
-    writeDelimitedList.call(this, ' | ', types, state);
+    writeDelimitedListWithParensRule.call(this, ' | ', types,
+      node => ['FunctionTypeAnnotation', 'IntersectionTypeAnnotation'].indexOf(node.type) !== -1,
+      state);
   },
   IntersectionTypeAnnotation ({ types }, state) {
-    writeDelimitedList.call(this, ' & ', types, state);
+    writeDelimitedListWithParensRule.call(this, ' & ', types,
+      node => ['FunctionTypeAnnotation', 'UnionTypeAnnotation'].indexOf(node.type) !== -1,
+      state);
   },
   TypeofTypeAnnotation ({ argument }, state) {
     const { output: o } = state;
@@ -133,12 +149,12 @@ const flowGenerator = {
     this[next](argument, state);
   },
   Identifier ({ typeAnnotation, ...node }, state) {
-    baseGenerator.Identifier(node, state);
+    baseGenerator.Identifier.call(this, node, state);
     this[nextMaybe](typeAnnotation, state);
   },
   TypeParameterDeclaration: h.TypeParameters,
   TypeParameterInstantiation: h.TypeParameters,
-  TypeParameter ({ variance, name, bound }, state) {
+  TypeParameter ({ variance, name, bound, default: default_ }, state) {
     const { output: o } = state;
     switch (variance) {
       case 'plus':
@@ -149,22 +165,20 @@ const flowGenerator = {
         break;
     }
     o.write(name);
-    this[nextMaybeStr](': ', bound, state);
+    this[nextMaybe](bound, state);
+    this[nextMaybeStr](' = ', default_, state);
   },
   FunctionDeclaration: FunctionDeclaration = function ({
-    generator, id, params, body,
+    generator, id, params, rest, body, defaults, async,
     returnType, typeParameters
   }, state) {
     const { output: o } = state;
+    if (async) o.write('async ');
     o.write(generator ? 'function* ' : 'function ');
     if (id) {
       o.write(id.name);
     }
-    this[nextMaybe](typeParameters, state);
-    o.write('(');
-    writeCommaList.call(this, params, state);
-    o.write(')');
-    this[nextMaybeStr](': ', returnType, state);
+    h.functionSignature.call(this, { typeParameters, params, defaults, rest, returnType }, state, { colonReturn: true });
     o.write(' ');
     this[next](body, state);
   },
@@ -175,13 +189,14 @@ const flowGenerator = {
     if (computed) o.write('[');
     this[next](key, state);
     if (computed) o.write(']');
-    this[nextMaybeStr](': ', typeAnnotation, state);
+    this[nextMaybe](typeAnnotation, state);
     if (value) {
       o.write(' = ');
       this[next](value, state);
     }
+    o.write(';');
   },
-  ClassDeclaration ({ id, superClass, implements: implements_, typeParameters, superTypeParameters, body }, state) {
+  ClassDeclaration ({ id, extends: extends_, superClass, implements: implements_, typeParameters, superTypeParameters, body }, state) {
     const { output: o } = state;
     o.write('class ');
     if (id) {
@@ -189,7 +204,11 @@ const flowGenerator = {
       this[nextMaybe](typeParameters, state);
       o.write(' ');
     }
-    if (superClass) {
+    if (extends_ && extends_.length) {
+      o.write('extends ');
+      writeCommaList.call(this, extends_, state);
+      o.write(' ');
+    } else if (superClass) {
       o.write('extends ');
       this[next](superClass, state);
       this[nextMaybe](superTypeParameters, state);
@@ -202,7 +221,7 @@ const flowGenerator = {
     }
     this[next](body, state);
   },
-  InterfaceDeclaration ({ id, extends_, typeParameters, body }, state) {
+  InterfaceDeclaration ({ id, extends: extends_, typeParameters, body }, state) {
     const { output: o } = state;
     o.write('interface ');
     if (id) {
@@ -210,7 +229,7 @@ const flowGenerator = {
       this[nextMaybe](typeParameters, state);
       o.write(' ');
     }
-    if (extends_) {
+    if (extends_ && extends_.length) {
       o.write('extends ');
       writeCommaList.call(this, extends_, state);
       o.write(' ');
@@ -223,7 +242,7 @@ const flowGenerator = {
     this.InterfaceDeclaration(node, state);
   },
   ClassImplements ({ typeParameters, ...node }, state) {
-    baseGenerator.ClassImplements(node, state);
+    baseGenerator.ClassImplements.call(this, node, state);
     this[nextMaybe](typeParameters, state);
   },
   InterfaceExtends (node, state) {
@@ -247,7 +266,6 @@ const flowGenerator = {
     const { output: o } = state;
     o.write('(');
     this[next](expression, state);
-    o.write(': ');
     this[next](typeAnnotation, state);
     o.write(')');
   },
@@ -303,7 +321,11 @@ const flowGenerator = {
           this[next](declaration, state);
       }
     } else {
-      if (!default_) o.write('{');
+      const isDefaultOrBatch = default_ || (
+        specifiers.length === 1 &&
+        specifiers[ 0 ].type === 'ExportBatchSpecifier'
+      );
+      if (!isDefaultOrBatch) o.write('{');
       if (specifiers.length > 0) {
         for (let i = 0; ;) {
           const specifier = specifiers[i];
@@ -323,7 +345,7 @@ const flowGenerator = {
           }
         }
       }
-      if (!default_) o.write('}');
+      if (!isDefaultOrBatch) o.write('}');
       if (source) {
         o.write(' from ');
         this[next](source, state);
@@ -336,6 +358,53 @@ const flowGenerator = {
     o.write('declare module.exports');
     this[nextMaybe](typeAnnotation, state);
     o.write(';');
+  },
+  MethodDefinition ({ static: static_, kind, computed, generator, key, value }, state) {
+    const { output: o } = state;
+    if (static_) o.write('static ');
+    switch (kind[0]) {
+      case 'g': // `get`
+      case 's': // `set`
+        o.write(kind + ' ');
+        break;
+      default:
+        break;
+    }
+    if (value.generator) o.write('*');
+    if (computed) {
+      o.write('[');
+      this[next](key, state);
+      o.write(']');
+    } else {
+      this[next](key, state);
+    }
+    const { typeParameters, params, defaults, rest, returnType } = value;
+    h.functionSignature.call(this, { typeParameters, params, defaults, rest, returnType }, state, { colonReturn: true });
+    o.write(' ');
+    this[next](value.body, state);
+  },
+  ArrowFunctionExpression ({ async, typeParameters, params, defaults, rest, returnType, body }, state) {
+    const { output: o } = state;
+    if (async) o.write('async ');
+    h.functionSignature.call(this, { typeParameters, params, defaults, rest, returnType }, state, { colonReturn: true });
+    o.write(' => ');
+    const parens = body.type === 'ObjectExpression';
+    if (parens) o.write('(');
+    this[next](body, state);
+    if (parens) o.write(')');
+  },
+  ArrayExpression ({ elements }, state) {
+    const { output: o } = state;
+    o.write('[');
+    elements.forEach((element, i) => {
+      if (element) {
+        this[next](element, state);
+        if (i + 1 < elements.length) {
+          o.write(', ');
+        }
+      }
+    });
+    o.write(']');
   }
 };
 

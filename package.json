@@ -41,7 +41,8 @@
   },
   "homepage": "https://github.com/motiz88/astring-flow#readme",
   "dependencies": {
-    "babel-runtime": "^6.11.6"
+    "babel-runtime": "^6.11.6",
+    "js-string-escape": "^1.0.1"
   },
   "peerDependencies": {
     "astring": "^0.6.1"
@@ -62,6 +63,7 @@
     "compat": "^1.0.3",
     "condition-circle": "^1.2.0",
     "cross-env": "^2.0.0",
+    "deep-equal": "^1.0.1",
     "env-check": "0.0.1",
     "eslint": "^2.13.1",
     "eslint-config-semistandard": "^6.0.2",
@@ -82,7 +84,8 @@
     "normalize-newline": "^2.0.0",
     "npm-run-all": "^2.3.0",
     "nyc": "^7.1.0",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "^4.3.5",
+    "to-single-quotes": "^2.0.1"
   },
   "nyc": {
     "all": true,

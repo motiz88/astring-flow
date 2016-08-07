@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "ast-types": "^0.8.18",
-    "astring": "github:motiz88/astring#installable-master",
+    "astring": "file:submodules/astring",
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.0",
     "babel-eslint": "^6.0.4",

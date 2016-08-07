@@ -14,3 +14,7 @@ deployment:
     branch: master
     commands:
       - npm run semantic-release
+checkout:
+  post:
+    - git submodule sync --recursive
+    - git submodule update --recursive --init

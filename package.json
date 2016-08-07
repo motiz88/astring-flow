@@ -20,6 +20,7 @@
     "test:coverage": "cross-env NODE_ENV=test nyc --silent mocha",
     "test:coverage-and-xunit": "cross-env NODE_ENV=test nyc --silent mocha  --reporter mocha-junit-reporter",
     "test:fast": "mocha",
+    "test:debug": "node-debug --no-preload --web-port 8083 _mocha",
     "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
   },
   "repository": {

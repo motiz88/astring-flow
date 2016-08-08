@@ -79,9 +79,8 @@ const flowGenerator = {
   },
   ArrayTypeAnnotation ({ elementType }, state) {
     const { output: o } = state;
-    o.write('Array<');
     this[next](elementType, state);
-    o.write('>');
+    o.write('[]');
   },
   ObjectTypeAnnotation ({ properties, indexers, callProperties, comments, trailingComments }, state) {
     const body = [...properties, ...indexers, ...callProperties];

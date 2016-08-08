@@ -16,7 +16,7 @@
     "flow:check": "flow check",
     "test": "npm run test:ci",
     "test:ci": "run-s --continue-on-error test:coverage-and-xunit eslint:xunit-to-file",
-    "test:local": "run-s test:coverage eslint coverage:html",
+    "test:local": "run-s test:coverage coverage:html eslint",
     "test:coverage": "cross-env NODE_ENV=test nyc --silent mocha",
     "test:coverage-and-xunit": "cross-env NODE_ENV=test nyc --silent mocha  --reporter mocha-junit-reporter",
     "test:fast": "mocha",

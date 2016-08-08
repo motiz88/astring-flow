@@ -147,8 +147,10 @@ const flowGenerator = {
     o.write('typeof ');
     this[next](argument, state);
   },
-  Identifier ({ typeAnnotation, ...node }, state) {
+  Identifier ({ typeAnnotation, optional, ...node }, state) {
+    const { output: o } = state;
     baseGenerator.Identifier.call(this, node, state);
+    if (optional) o.write('?');
     this[nextMaybe](typeAnnotation, state);
   },
   TypeParameterDeclaration: h.TypeParameters,

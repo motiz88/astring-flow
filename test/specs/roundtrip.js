@@ -18,15 +18,21 @@ describe('roundtrip', () => {
     describe(basename, () => {
       const fixtureSrc = normalizeNewline(fs.readFileSync(filename, 'utf8'));
       const fixtureAst = parseFlow(fixtureSrc);
-      if (fixtureAst.errors.length) {
-        return;
-      }
-      if (anyNodesAre(fixtureAst, unsupportedNodes)) {
-        return;
+      const isFlowParserTest = path.relative(__dirname, filename).indexOf('flow-parser-tests') !== -1;
+      if (isFlowParserTest) {
+        if (fixtureAst.errors.length) {
+          return;
+        }
+        if (anyNodesAre(fixtureAst, unsupportedNodes)) {
+          return;
+        }
       }
       let generatedSrc;
 
       before(() => {
+        if (!isFlowParserTest) {
+          fixtureAst.errors.should.deep.equal([]);
+        }
         generatedSrc = generate(fixtureAst);
       });
       it('result should parse with no errors', () => {

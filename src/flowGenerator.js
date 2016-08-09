@@ -79,7 +79,16 @@ const flowGenerator = {
   },
   ArrayTypeAnnotation ({ elementType }, state) {
     const { output: o } = state;
+    const parens = [
+      'ObjectTypeAnnotation',
+      'UnionTypeAnnotation',
+      'IntersectionTypeAnnotation',
+      'FunctionTypeAnnotation',
+      'TypeofTypeAnnotation'
+    ].indexOf(elementType.type) !== -1;
+    if (parens) o.write('(');
     this[next](elementType, state);
+    if (parens) o.write(')');
     o.write('[]');
   },
   ObjectTypeAnnotation ({ properties, indexers, callProperties, comments, trailingComments }, state) {

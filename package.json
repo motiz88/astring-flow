@@ -84,7 +84,7 @@
     "node-glob": "^1.2.0",
     "normalize-newline": "^2.0.0",
     "npm-run-all": "^2.3.0",
-    "nyc": "^7.1.0",
+    "nyc": "^8.0.0",
     "semantic-release": "^4.3.5",
     "to-single-quotes": "^2.0.1"
   },

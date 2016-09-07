@@ -96,5 +96,8 @@
   },
   "release": {
     "verifyConditions": "condition-circle"
+  },
+  "engines": {
+    "node": ">=4"
   }
 }

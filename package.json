@@ -85,7 +85,7 @@
     "normalize-newline": "^2.0.0",
     "npm-run-all": "^2.3.0",
     "nyc": "^8.1.0",
-    "semantic-release": "^4.3.5",
+    "semantic-release": "^6.3.2",
     "to-single-quotes": "^2.0.1"
   },
   "nyc": {

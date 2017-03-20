@@ -52,7 +52,7 @@
     "astring": "file:submodules/astring",
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.0",
-    "babel-eslint": "^6.0.4",
+    "babel-eslint": "^7.2.0",
     "babel-plugin-istanbul": "=1.0.2",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "babel-plugin-transform-runtime": "^6.12.0",
